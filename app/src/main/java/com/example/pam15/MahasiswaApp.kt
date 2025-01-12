@@ -11,3 +11,4 @@ class MahasiswaApp : Application(){
         //instance = object yang dibuat dari class
     }
 }
+
