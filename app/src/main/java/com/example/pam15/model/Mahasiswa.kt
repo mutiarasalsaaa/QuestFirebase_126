@@ -11,3 +11,4 @@ data class Mahasiswa(
 ) {
     constructor() : this("", "","","","","")
 }
+
