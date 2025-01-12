@@ -84,3 +84,49 @@ fun HomeScreen(
     }
 }
 
+@Composable
+fun HomeStatus(
+    homeUiState: HomeUiState,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDeleteClick: (Mahasiswa) -> Unit = {},
+    onDetailClick: (String) -> Unit
+) {
+    var deleteConfirmationRequired by rememberSaveable { mutableStateOf<Mahasiswa?>(null) }
+
+    when (homeUiState) {
+        is HomeUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
+
+        is HomeUiState.Success -> {
+            if (homeUiState.data.isEmpty()) {
+                Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(text = "Tidak ada data Mahasiswa")
+                }
+            } else {
+                ListMahasiswa(
+                    listMhs = homeUiState.data, modifier = Modifier.fillMaxWidth(),
+                    onClick = {
+                        onDetailClick(it)},
+                    onDelete = {
+                        onDeleteClick(it)
+                    }
+                )
+                deleteConfirmationRequired?.let { data ->
+                    DeleteConfirmationDialog(
+                        onDeleteConfirm = {
+                            onDeleteClick(data)
+                            deleteConfirmationRequired = null
+                        },
+                        onDeleteCancel = {
+                            deleteConfirmationRequired = null
+                        })
+                }
+            }
+        }
+        is HomeUiState.Error -> OnError(
+            messaage = homeUiState.e.message ?: "Error",
+            retryAction, modifier = modifier.fillMaxSize()
+        )
+    }
+}
+}
