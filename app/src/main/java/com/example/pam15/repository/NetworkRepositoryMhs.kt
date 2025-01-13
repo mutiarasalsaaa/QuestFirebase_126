@@ -10,29 +10,28 @@ import kotlinx.coroutines.tasks.await
 
 class NetworkRepositoryMhs (
     private val firestore: FirebaseFirestore
-) : RepositoryMhs {
-    override suspend fun indertMhs(mahasiswa: Mahasiswa) {
+) : RepositoryMhs{
+
+    override suspend fun insertMhs (mahasiswa: Mahasiswa){
         try {
             firestore.collection("Mahasiswa").add(mahasiswa).await()
         } catch (e: Exception) {
-            throw Exception(
-                "Gagal menambahkan data mahasiswa:" +
-                        "${e.message}"
-            )
+            throw Exception ("Gagal menambahkan data mahasiswa: ${e.message}")
         }
     }
 
     override fun getAllMhs(): Flow<List<Mahasiswa>> = callbackFlow {
         val mhsCollection = firestore.collection("Mahasiswa")
             .orderBy("nim", Query.Direction.ASCENDING)
-            .addSnapshotListener { value, error ->
-                if (value != null) {
-                    val mhsList = value.documents.mapNotNull {
+            .addSnapshotListener {
+                    value, error ->
+                if(value != null){
+                    val mhslist = value.documents.mapNotNull {
                         //convert dari document firestore ke data class
                         it.toObject(Mahasiswa::class.java)!!
                     }
-                    //fungsi untuk mengirim colevtion ke dataclass
-                    trySend(mhsList)
+                    //fungsi untuk mengirim collection ke data class
+                    trySend(mhslist)
                 }
             }
         awaitClose {
@@ -41,9 +40,9 @@ class NetworkRepositoryMhs (
         }
     }
 
-    override fun getMhs(nim: String): Flow<Mahasiswa> {
-        val mhsDocument = firestore.collection("Mahasiswa")
-            .document(nim)
+    override fun getMhs(nim: String): Flow<Mahasiswa> = callbackFlow {
+        val mhsDocument = firestore.collection ("Mahasiswa")
+            .document (nim)
             .addSnapshotListener { value, error ->
                 if (value != null) {
                     val mhs = value.toObject(Mahasiswa::class.java)!!
@@ -54,7 +53,6 @@ class NetworkRepositoryMhs (
             mhsDocument.remove()
         }
     }
-
 
     override suspend fun deleteMhs(mahasiswa: Mahasiswa) {
         try {
@@ -70,6 +68,7 @@ class NetworkRepositoryMhs (
             throw Exception("Gagal menghapus data mahasiswa: ${e.message}")
         }
     }
+
 
     override suspend fun updateMhs(mahasiswa: Mahasiswa) {
         try {
