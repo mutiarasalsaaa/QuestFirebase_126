@@ -155,3 +155,131 @@ fun InsertBodyMhs(
     }
 }
 
+@Composable
+fun FormMahasiswa(
+    mahasiswaEvent: MahasiswaEvent = MahasiswaEvent(),
+    onValueChange: (MahasiswaEvent) -> Unit,
+    errorState: FormErrorState = FormErrorState(),
+    modifier: Modifier = Modifier
+){
+    val gender = listOf("Laki-Laki", "Perempuan")
+    val kelas = listOf("A", "B","C","D","E")
+
+    Column(
+        modifier = modifier.fillMaxWidth()
+    ) {
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.nama,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(nama = it))
+            },
+            label = {Text(text = "Nama")},
+            isError = errorState.nama !=null,
+            placeholder = {Text(text = "Masukkan Nama")},
+        )
+        Text(
+            text = errorState.nama?: "",
+            color = Color.Red
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.nim,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(nim = it))
+            },
+            label = {Text(text = "NIM")},
+            isError = errorState.nim !=null,
+            placeholder = {Text(text = "Masukkan NIM")},
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        )
+        Text(
+            text = errorState.nim?: "",
+            color = Color.Red
+        )
+
+        Text(text = "Jenis Kelamin")
+        Row (
+            modifier = Modifier.fillMaxWidth()
+        ){
+            gender.forEach { jk ->
+                Row (
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ){
+                    RadioButton(
+                        selected = mahasiswaEvent.gender == jk,
+                        onClick = {
+                            onValueChange(mahasiswaEvent.copy(gender = jk))
+                        }
+                    )
+                    Text(
+                        text = jk
+                    )
+                }
+            }
+        }
+        Text(
+            text = errorState.gender?: "",
+            color = Color.Red
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.alamat,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(alamat = it))
+            },
+            label = {Text(text = "Alamat")},
+            isError = errorState.alamat !=null,
+            placeholder = {Text(text = "Masukkan Alamat")},
+        )
+        Text(
+            text = errorState.alamat?: "",
+            color = Color.Red
+        )
+
+        Text(text = "Kelas")
+        Row (
+            modifier = Modifier.fillMaxWidth()
+        ){
+            kelas.forEach { kelas ->
+                Row (
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ){
+                    RadioButton(
+                        selected = mahasiswaEvent.kelas == kelas,
+                        onClick = {
+                            onValueChange(mahasiswaEvent.copy(kelas = kelas))
+                        }
+                    )
+                    Text(
+                        text = kelas
+                    )
+                }
+            }
+        }
+        Text(
+            text = errorState.kelas?: "",
+            color = Color.Red
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.angkatan,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(angkatan = it))
+            },
+            label = {Text(text = "Angkatan")},
+            isError = errorState.angkatan !=null,
+            placeholder = {Text(text = "Masukkan Angkatan")},
+        )
+        Text(
+            text = errorState.angkatan?: "",
+            color = Color.Red
+        )
+    }
+}
