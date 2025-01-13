@@ -139,4 +139,27 @@ fun OnLoading(modifier: Modifier = Modifier) {
     )
 }
 
+@Composable
+fun OnError(
+    messaage: String,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.error_img),
+            contentDescription = "",
+        )
+        Text(
+            text = messaage, modifier = Modifier.padding(16.dp)
+        )
+        Button(onClick = retryAction) {
+            Text("Coba lagi")
+        }
+    }
 }
+
