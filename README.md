@@ -7,5 +7,6 @@ Penambahan Data
 Ketika Data dihapus
 ![Cuplikan layar 2025-01-13 122717](https://github.com/user-attachments/assets/dcaee534-a216-40a7-8fa8-64dc50af026e)
 
-masih error mas :(
-![image](https://github.com/user-attachments/assets/6c3549c8-c35d-477d-9a78-db6e3fa5d357)
+masih error mas :( 
+![image](https://github.com/user-attachments/assets/d32cc685-77d7-41bf-91bf-d517a490a400)
+
