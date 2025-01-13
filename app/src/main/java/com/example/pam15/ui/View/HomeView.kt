@@ -151,7 +151,7 @@ fun OnError(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.error_img),
+            painter = painterResource(id = R.drawable.error__img),
             contentDescription = "",
         )
         Text(

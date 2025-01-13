@@ -11,18 +11,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.pam15.ui.View.HomeScreen
+import com.example.pam15.navigation.PengelolaHalaman
 import com.example.pam15.ui.theme.PAM15Theme
+import com.example.pam15.ui.View.HomeScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PAM15Theme {
+            PAM15Theme() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(
-                        navigateToItemEntry = {},
+                    PengelolaHalaman(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -42,7 +42,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    PAM15Theme {
+    PAM15Theme() {
         Greeting("Android")
     }
 }
