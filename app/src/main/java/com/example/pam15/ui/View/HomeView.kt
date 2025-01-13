@@ -1,4 +1,4 @@
-package com.example.pam15.ui.page
+package com.example.pam15.ui.View
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -129,4 +129,14 @@ fun HomeStatus(
         )
     }
 }
+
+@Composable
+fun OnLoading(modifier: Modifier = Modifier) {
+    Image(
+        modifier = modifier.size(20.dp),
+        painter = painterResource(R.drawable.loading_img),
+        contentDescription = ""
+    )
+}
+
 }
